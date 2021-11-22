@@ -7,10 +7,12 @@
 
 class Renderable {
 public:
+    virtual void init(){
+
+    }
     virtual void render(){
 
     }
-
 };
 
 #endif //INC_2DHOUSE_RENDERABLE_H

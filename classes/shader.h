@@ -21,6 +21,7 @@ public:
     Shader(const char* vertexPath, const char* fragmentPath);
 
     void use();
+    void unUse();
 
     void setBool(const string &name, bool val) const;
     void setInt(const string &name, int val) const;

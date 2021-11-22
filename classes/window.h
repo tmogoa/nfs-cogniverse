@@ -21,10 +21,11 @@ protected:
 public:
     list<Renderable*> renderables;
 
-    Window(const char *title, int width, int height);
+    Window(const char *title, int width, int height, bool wrFrameMode);
     void init();
     void initOpenGL();
     void create(const char *title);
+    void initRenderables();
     void render();
     static void resizer(GLFWwindow* window, int width, int height);
     void registerResizer();

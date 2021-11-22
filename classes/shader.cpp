@@ -10,6 +10,7 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath) {
     string fragmentCode;
     ifstream vShaderFile;
     ifstream fShaderFile;
+
     // ensure ifstream objects can throw exceptions:
     vShaderFile.exceptions (ifstream::failbit | ifstream::badbit);
     fShaderFile.exceptions (ifstream::failbit | ifstream::badbit);
@@ -87,14 +88,20 @@ void Shader::use() {
     glUseProgram(Shader::id);
 }
 
+void Shader::unUse() {
+    glDeleteProgram(Shader::id);
+}
+
 void Shader::setBool(const std::string &name, bool val) const
 {
     glUniform1i(glGetUniformLocation(Shader::id, name.c_str()), (int)val);
 }
+
 void Shader::setInt(const std::string &name, int val) const
 {
     glUniform1i(glGetUniformLocation(Shader::id, name.c_str()), val);
 }
+
 void Shader::setFloat(const std::string &name, float val) const
 {
     glUniform1f(glGetUniformLocation(Shader::id, name.c_str()), val);

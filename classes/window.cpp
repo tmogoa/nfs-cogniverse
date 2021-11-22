@@ -10,7 +10,7 @@
 
 using namespace std;
 
-Window::Window(const char *title, int width, int height) {
+Window::Window(const char *title, int width, int height, bool wrFrameMode) {
     Window::width = width;
     Window::height = height;
     Window::renderables = {};
@@ -18,6 +18,12 @@ Window::Window(const char *title, int width, int height) {
     create(title);
     initOpenGL();
     registerResizer();
+
+    if(wrFrameMode){
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    }else{
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
 }
 
 void Window::init() {
@@ -73,14 +79,25 @@ void Window::processInput(GLFWwindow *window) {
         glfwSetWindowShouldClose(window, true);
 }
 
+void Window::initRenderables() {
+    list<Renderable*>::iterator it = renderables.begin();
+    for (; it != renderables.end(); it++) {
+        (*it)->init();
+    }
+}
+
 void Window::render() {
     while(!glfwWindowShouldClose(window))
     {
         processInput(window);
 
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
         //rendering renderables here
         list<Renderable*>::iterator it = renderables.begin();
         for (; it != renderables.end(); it++) {
+//            (*it)->init();
             (*it)->render();
         }
 
